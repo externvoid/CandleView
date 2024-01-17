@@ -10,9 +10,16 @@ struct ContentView: View {
 //  @State var fsize: CGSize// = NSScreen.main!.frame.size
 //    let fsize: CGSize = CGSize(width: 175, height: 120)
   var body: some View {
-    CandleView(c: c, fsize: fsize)
+    GeometryReader { p in
+//      CandleView(c: c, fsize: p.size)
+      let pp: CGSize = CGSize(width: p.size.width - 100,
+                              height: p.size.height - 200)
+      CandleView(c: c, fsize: pp)
+      let _ = print("in body@ContentView \(p.size)")
+    }
+//      CandleView(c: c, fsize: fsize)
+//      let _ = print("in body \(fsize)")
 //      .redacted(reason: c.isLoading ? .placeholder: .init())
-    let _ = print("in body \(fsize)")
   }
 }
 
@@ -178,7 +185,11 @@ extension CandleView {
     if c.ar.isEmpty { EmptyView() } else {
 //    if false { EmptyView() } else {
       ZStack(alignment: .topLeading) {
-      let i = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
+//      let i = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
+      var i: Int {
+        let n = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
+        let cnt = c.ar.count; return n >= cnt ? cnt - 1 : n
+      }
       let v = Int(c.ar[i].volume)
       let d = c.ar[i].date
       Text("v: \(String(format: "%6d", v)), d: \(d)")
