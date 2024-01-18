@@ -11,6 +11,7 @@ struct ContentView0: View {
   }
 }
 
-//#Preview {
-//  ContentView().frame(width: 320, height: 400)
-//}
+#Preview {
+  ContentView()
+    //.frame(width: 420, height: 400)
+}

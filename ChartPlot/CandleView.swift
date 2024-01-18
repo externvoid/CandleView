@@ -11,10 +11,12 @@ struct ContentView: View {
 //    let fsize: CGSize = CGSize(width: 175, height: 120)
   var body: some View {
     GeometryReader { p in
-//      CandleView(c: c, fsize: p.size)
-      let pp: CGSize = CGSize(width: p.size.width - 100,
-                              height: p.size.height - 200)
+      let pp: CGSize = CGSize(width: p.size.width - 34,
+                              height: 0.8 * (p.size.height - 29))
       CandleView(c: c, fsize: pp)
+//      CandleView(c: c, fsize: fsize)
+//      .onAppear(perform: {
+//      })
       let _ = print("in body@ContentView \(p.size)")
     }
 //      CandleView(c: c, fsize: fsize)
@@ -29,6 +31,8 @@ struct CandleView: View {
   @State var hoverLocation: CGPoint = .zero
   @State var isHovering = false
   @State var didFinishSetup = false
+  @State var isShown = false
+  @State var _code_: String = ""
   var body: some View {
     ZStack {
       ZStack(alignment: .bottom) {
@@ -55,9 +59,10 @@ struct CandleView: View {
         .padding(.bottom, 2)
       } // ZStack
       .onAppear {
-        if !didFinishSetup {
-//          sleep(1); c.ticker = "6952"
-          didFinishSetup = true
+        print("inner ZStack1")
+        if let window = NSApplication.shared.windows.first {
+          let windowSize = window.frame.size
+          print("Width: \(windowSize.width), Height: \(windowSize.height)")
         }
       }
       .padding(2)
@@ -77,7 +82,11 @@ struct CandleView: View {
       }
     }//.onAppear(perform: { c.ticker = "1301" }) // ZStack2
       .onAppear {
-        print("ZStack2")
+        print("outer ZStack2")
+        if let window = NSApplication.shared.windows.first {
+          let windowSize = window.frame.size
+          print("Width: \(windowSize.width), Height: \(windowSize.height)")
+        }
       }
     .padding(16)
     .background(Color(.windowBackgroundColor))
@@ -186,24 +195,55 @@ extension CandleView {
 //    if false { EmptyView() } else {
       ZStack(alignment: .topLeading) {
 //      let i = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
-      var i: Int {
-        let n = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
-        let cnt = c.ar.count; return n >= cnt ? cnt - 1 : n
+        var i: Int {
+          let n = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
+          let cnt = c.ar.count; return n >= cnt ? cnt - 1 : n
+        }
+        let v = Int(c.ar[i].volume)
+        let d = c.ar[i].date
+        Rectangle()
+          .fill(.white)
+          .opacity(0.5)
+          .frame(width: 01, height: fsize.height*1.20)
+          .position(x: hoverLocation.x, y: (fsize.height*1.20)/2.0 + 0.0) // locate the center of View.
+        Button { isShown = true } label: {
+          Text("v: \(String(format: "%6d", v)), d: \(d)")
+            .foregroundColor(.white)
+            .font(.system(size: 9.5, design: .monospaced))
+            .padding(.top, 13)
+            .padding(.leading, 2)
+        }
+        .buttonStyle(PlainButtonStyle())
+//        .popover(isPresented: $isShown) {
+//          VStack {
+//            Spacer()
+//            Text("PopOver").font(.largeTitle)
+//            Spacer()
+//          }
+//        Text("v: \(String(format: "%6d", v)), d: \(d)")
+//          .foregroundColor(.white)
+//          .font(.system(size: 9.5, design: .monospaced))
+//          .padding(.top, 13)
+//          .padding(.leading, 2)
+        //        .offset(x: 10, y: 10)
+//        Button("Click Here") { isShown = true }
       }
-      let v = Int(c.ar[i].volume)
-      let d = c.ar[i].date
-      Text("v: \(String(format: "%6d", v)), d: \(d)")
-        .foregroundColor(.white)
-        .font(.system(size: 9.5, design: .monospaced))
-        .padding(.top, 13)
-        .padding(.leading, 2)
-      //        .offset(x: 10, y: 10)
-      Rectangle()
-        .fill(.white)
-        .opacity(0.5)
-        .frame(width: 01, height: fsize.height*1.20)
-        .position(x: hoverLocation.x, y: (fsize.height*1.20)/2.0 + 0.0) // locate the center of View.
+      .popover(isPresented: $isShown) {
+        VStack {
+          Spacer()
+          Text("Ticker Code").font(.largeTitle)
+          Spacer()
+          TextField("Ticker Code", text: $_code_)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .onSubmit { c.ticker = _code_ }
+          Spacer()
+        }.frame(width: 200, height: 100)
       }
     }
   }
+}
+let a: CGSize = .init(width: 300, height: 200)
+#Preview {
+  CandleView(c: VM(), fsize: a)
+    .frame(width: a.width + 32, height: a.height * 1.25 + 32)
 }
