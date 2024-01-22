@@ -1,3 +1,6 @@
+📅2024/01/20St
+1. ToDo: 週足、月足データ作成、アルゴ
+ 
 📅2024/01/18Th
 1. popover modifireを実装。Buttonで表示させるもButtonの位置とはことなる値でPopover
 ▶️問題発生、6952を入力すると画面空白、6を入力するとPublishされる, 銘柄コードで
@@ -22,6 +25,8 @@ sink = 60, 1301
 in body@ContentView (1291.0, 582.0)
 
 🔹GeometryReaderが返す値が3通り
+
+3. Swipeで銘柄変更、SwiftUIX/SwiftUIX
 
 ▶️ぅーん。何が起こっているのかよくわからん。
 1. Window Sizeを測るには？

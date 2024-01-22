@@ -100,7 +100,6 @@ extension CandleView {
     //  let h = size.height
     let width = size.width, h = size.height, n = c.ar.count, w = width / CGFloat(n)
     let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h/c.vmax, tx: 0.0, ty: h)
-    //  let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
     var ps = Path(), pf = Path() // 陽線、白塗り, 陽線、枠だけ
 
     for (i, e) in c.ar.enumerated() {
@@ -162,13 +161,9 @@ extension CandleView {
     let width = size.width, h = size.height, n = c.ar.count, w = width / CGFloat(n)
     let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h/c.qheight, tx: 0.0, ty: h)
     let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
-    //  let mt1 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min).concatenating(mtx)
-    //  let mt2 = mtx.concatenating(CGAffineTransform.identity.translatedBy(x: 0, y: -c.min))
     var pf = Path(), ps = Path() // 陽線、白塗り, 陽線、枠だけ
 
     for (i, e) in c.ar.enumerated() {
-      //    let point = CGPoint(x: CGFloat(i) * w, y: min(e.open, e.close)) // 日足左下座標
-      //    let csize = CGSize(width: w, height: abs(e.open - e.close)) //実体縦横
       let rect = CGRect(x: CGFloat(i) * w, y: min(e.open, e.close), width: w, height: abs(e.open - e.close))
       if e.open < e.close { // 引け値高, 陽線
         pf.addRect(rect) // addLine can't be contained in fill method
@@ -179,11 +174,8 @@ extension CandleView {
       ps.addLine(to: CGPoint(x: rect.midX, y: e.high) )
       ps.move(to: CGPoint(x: rect.midX, y: rect.minY))
       ps.addLine(to: CGPoint(x: rect.midX, y: e.low) )
-      // Cannot convert value of type 'Triangle1' to expected argument type 'StrokeStyle'
     }
     ctx.fill(pf.applying(mt0).applying(mtx), with: .color(.blue))
-    //  ctx.fill(pf.applying(mt1), with: .color(.blue))
-    //  ctx.stroke(pf.applying(mt2), with: .color(.blue))
     ctx.stroke(ps.applying(mt0).applying(mtx), with: .color(.blue))
   }
 
@@ -191,7 +183,7 @@ extension CandleView {
   /// - Parameter none
   @ViewBuilder
   var overlayView: some View {
-    if c.ar.isEmpty { EmptyView() } else {
+    if c.ar.isEmpty { Text("Now Loading").font(.largeTitle) } else {
 //    if false { EmptyView() } else {
       ZStack(alignment: .topLeading) {
 //      let i = Int(hoverLocation.x/fsize.width * Double(c.ar.count))
