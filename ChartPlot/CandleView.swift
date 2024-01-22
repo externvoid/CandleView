@@ -53,7 +53,7 @@ struct CandleView: View {
         //.onAppear(perform: { c.ticker = "1301" })
         // 3
         Canvas { ctx, size in // Date Caption
-          dateCap(ctx, size)
+          xaxisDateTick(ctx, size)
         }
         .frame(width: fsize.width, height: 12) //, alignment: .bottom)
         .padding(.bottom, 2)
@@ -110,9 +110,9 @@ extension CandleView {
     ctx.fill(pf.applying(mtx), with: .color(.blue))
     ctx.stroke(ps.applying(mtx), with: .color(.red))
   }
-  // MARK: - draw 日付キャプション
+  // MARK: - draw 日付キャプション, xaxisDateTick
   /// - Parameter ctx: , size, xticks: (0,0) - (1,1)areaに描く出来高グラフのY座標
-  func dateCap(_ ctx: GraphicsContext, _ size: CGSize) {
+  func xaxisDateTick(_ ctx: GraphicsContext, _ size: CGSize) {
     if c.ar.isEmpty { return }
     let width = size.width, _ = size.height, n = c.ar.count, w = width / CGFloat(n)
     //    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -1.0, tx: 0.0, ty: h)
@@ -206,6 +206,17 @@ extension CandleView {
             .padding(.leading, 2)
         }
         .buttonStyle(PlainButtonStyle())
+        .popover(isPresented: $isShown) {
+          VStack {
+            Spacer()
+            Text("Ticker Code").font(.largeTitle)
+            Spacer()
+            TextField("Ticker Code", text: $_code_)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+              .onSubmit { c.ticker = _code_ }
+            Spacer()
+          }.frame(width: 200, height: 100)
+        } // popover
 //        .popover(isPresented: $isShown) {
 //          VStack {
 //            Spacer()
@@ -219,17 +230,6 @@ extension CandleView {
 //          .padding(.leading, 2)
         //        .offset(x: 10, y: 10)
 //        Button("Click Here") { isShown = true }
-      }
-      .popover(isPresented: $isShown) {
-        VStack {
-          Spacer()
-          Text("Ticker Code").font(.largeTitle)
-          Spacer()
-          TextField("Ticker Code", text: $_code_)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .onSubmit { c.ticker = _code_ }
-          Spacer()
-        }.frame(width: 200, height: 100)
       }
     }
   }
