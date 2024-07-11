@@ -7,10 +7,12 @@ public typealias candle = (date: String, open: Double, high: Double, low: Double
                            close: Double, volume: Double)
 public typealias xtick = (date: Date?, norm: Int, st: Bool)
 // MARK: conflicting code vs ticker
+
+//public actor VM: ObservableObject {
 public class VM: ObservableObject {
   @Published public var ar: [candle] = []
 //  @Published public var isLoading: Bool = true
-  public init(ar: [candle] = dummy, ticker: String = "N225") {
+  public init(ar: [candle] = dummy, ticker: String = "0000") {
     print("N225")
     self.ar = ar; self.ticker = ticker
   }
@@ -82,15 +84,20 @@ public class VM: ObservableObject {
   }
   func bind() {
     $ticker/*.dropFirst(1)*/.flatMap { e in
-      Future<[candle], Error> { [weak self] promise in
+      Future<[candle], Error> { promise in
 //        guard let self else { return }; isLoading = true
 //        print("isLoading = \(isLoading)")
-        let baseUrl = "http://stock.bad.mn/jsonS/", str = baseUrl + e
+//        let baseUrl = "https://tw.local/jsonS/", str = baseUrl + e
+//        let baseUrl = "https://192.168.0.50/jsonS/", str = baseUrl + e
+        let baseUrl = "https://stock.bad.mn/jsonS/", str = baseUrl + e
         let url = URL(string: str)!, request = URLRequest(url: url)
         Task {
           var ar: [[Any]] = [], result: [candle] = []
           do {
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, res) = try await URLSession.shared.data(for: request)
+            let nsRes = res as! HTTPURLResponse
+            print("response = \(nsRes.statusCode)")
+
             if let jsonArray = try? JSONSerialization.jsonObject(with: data,
                                                   options: []) as? [[Any]] {
               ar = jsonArray
@@ -104,8 +111,8 @@ public class VM: ObservableObject {
             }
             promise(.success(result)) //promiseはclosureで引数はResult. 非同期処理の結果を下流に
           } catch {
-            print("error = \(error)")
-            fatalError("*** catch ***")
+            print("***error*** = \(error)")
+//            fatalError("*** catch ***")
             promise(.failure(error))
           }
         }

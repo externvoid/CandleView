@@ -1,7 +1,7 @@
 import Foundation
 public extension Date {
-  private static var a: Int { 1 } // 奇妙な挙動に困った
-  private static var b: Int = 1
+//  private static var a: Int { 1 } // 奇妙な挙動に困った
+//  private static var b: Int = 1
   // error: extensions must not contain stored properties
   // var c: Int = 1
   static let formatter: DateFormatter = {

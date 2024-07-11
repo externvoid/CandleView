@@ -24,7 +24,6 @@ struct ContentView: View {
 //      .redacted(reason: c.isLoading ? .placeholder: .init())
   }
 }
-
 struct CandleView: View {
   @ObservedObject var c: VM
   var fsize: CGSize
