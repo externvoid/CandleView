@@ -1,3 +1,8 @@
+📅2024/07/15Mn
+1. CodeOrName.swift追加、コード選択をticker以外に会社名で行える様に！
+2. 色々問題が見えてきた
+3. ToDo: CrawlerアプリをGitHubで管理する
+
 📅2024/01/20St
 1. ToDo: 週足、月足データ作成、アルゴ
  

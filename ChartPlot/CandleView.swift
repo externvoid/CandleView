@@ -77,6 +77,7 @@ struct CandleView: View {
       }
       .overlay {
         overlayView
+
         //        if isHovering { }
       }
     }//.onAppear(perform: { c.ticker = "1301" }) // ZStack2
@@ -92,6 +93,7 @@ struct CandleView: View {
     .cornerRadius(12)
   } // some View
 } // 日足、出来高を描画
+// MARK: - CandleView extension
 extension CandleView {
   // MARK: - draw 出来高グラフ
   /// - Parameter ctx: , size, ar: (0,0) - (1,1)areaに描く出来高グラフのY座標
@@ -206,15 +208,16 @@ extension CandleView {
         }
         .buttonStyle(PlainButtonStyle())
         .popover(isPresented: $isShown) {
-          VStack {
-            Spacer()
-            Text("Ticker Code").font(.largeTitle)
-            Spacer()
-            TextField("Ticker Code", text: $_code_)
-              .textFieldStyle(RoundedBorderTextFieldStyle())
-              .onSubmit { c.ticker = _code_ }
-            Spacer()
-          }.frame(width: 200, height: 100)
+          CodeOrNameView(c: c, code: $_code_) // 三菱
+//          VStack {
+//            Spacer()
+//            Text("Ticker Code").font(.largeTitle)
+//            Spacer()
+//            TextField("Ticker Code", text: $_code_)
+//              .textFieldStyle(RoundedBorderTextFieldStyle())
+//              .onSubmit { c.ticker = _code_ }
+//            Spacer()
+//          }.frame(width: 200, height: 100)
         } // popover
 //        .popover(isPresented: $isShown) {
 //          VStack {
