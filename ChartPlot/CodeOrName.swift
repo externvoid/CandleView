@@ -6,6 +6,7 @@ struct ListItemView: View {
   var title: String
   @Binding var txt: String
   @Binding var code: String
+  @Environment(\.dismiss) private var dismiss
   var body: some View {
     Button {
       print("\(title) Pressed!")
@@ -13,6 +14,7 @@ struct ListItemView: View {
       txt = title
       code = title2code(title)
       c.ticker = code
+      dismiss()
     } label: {
       HStack {
         Text(title).foregroundStyle(.blue)
@@ -32,7 +34,7 @@ struct ListItemView: View {
     } else {
       return ""
     }
-  } //  先頭4文字取り出してTickerなら値をセット
+  }  //  先頭4文字取り出してTickerなら値をセット
 }
 // 🔹ボタンスタイルを使って押下時にボタンを変化させる。Gestureは不要！
 /// Listで押下時の背景色を変える場合に使うButtonStyle
@@ -59,8 +61,8 @@ extension ListButtonStyle {
 }
 
 struct ListItemButtonStyle: ListButtonStyle {
-  var backgroundColor: Color = .init(red: 245/255, green: 245/255, blue: 245/255)
-  var pressedBackgroundColor: Color = .init(red: 255/255, green: 192/255, blue: 203/255)
+  var backgroundColor: Color = .init(red: 245 / 255, green: 245 / 255, blue: 245 / 255)
+  var pressedBackgroundColor: Color = .init(red: 255 / 255, green: 192 / 255, blue: 203 / 255)
 }
 // MARK: CodeOrNameView
 struct CodeOrNameView: View {
@@ -73,7 +75,9 @@ struct CodeOrNameView: View {
   let url = "https://stock.bad.mn/jsonCode2"
   var allItems: [String] {
     ar.map { e in
-      let s1 = e[0] as! String ,s2 = e[1] as! String, s3 = e[2] as! String
+      let s1 = e[0] as! String
+      let s2 = e[1] as! String
+      let s3 = e[2] as! String
       return s1 + ": " + s2 + ": " + s3
       //      let s1 = e[0] as! String ,s2 = e[1] as! String; return s1 + ": " + s2
     }
@@ -106,21 +110,27 @@ struct CodeOrNameView: View {
   func textBox(txt: Binding<String>) -> some View {
     HStack {
       Spacer()
-      TextField("code or name",text: txt).font(.title)
+      TextField("code or name", text: txt).font(.title)
       Spacer()
-      Button{ self.txt = "" }
-    label: { Image(systemName: "xmark.circle").resizable()
-      .scaledToFit().frame(width: 15) }
+      Button {
+        self.txt = ""
+      } label: {
+        Image(systemName: "xmark.circle").resizable()
+          .scaledToFit().frame(width: 15)
+      }
     }
   }
 
   func fetchCodeTbl(_ str: String) async -> [[Any]] {
-    let url = URL(string: str)!; let request = URLRequest(url: url)
+    let url = URL(string: str)!
+    let request = URLRequest(url: url)
     var ar: [[Any]] = []
     do {
       let (data, _) = try await URLSession.shared.data(for: request)
-      if let jsonArray = try? JSONSerialization.jsonObject(with: data,
-                                                           options: []) as? [[Any]] {
+      if let jsonArray = try? JSONSerialization.jsonObject(
+        with: data,
+        options: []) as? [[Any]]
+      {
         ar = jsonArray
       }
       puts("OK")
@@ -130,14 +140,14 @@ struct CodeOrNameView: View {
     return ar
   }
 }
-struct ContentView0: View { // for playground
+struct ContentView0: View {  // for playground
   //  @State var txt: String = ""
   @State var code: String = ""
-  @StateObject var c: VM = .init() // Candle is in Sources
+  @StateObject var c: VM = .init()  // Candle is in Sources
   var body: some View {
-    CodeOrNameView(c: c, code: $code) // 三菱
+    CodeOrNameView(c: c, code: $code)  // 三菱
     // CodeOrNameView(txt: $txt, code: $code) // 三菱
-    let _ = print(code) // 6503
+    let _ = print(code)  // 6503
   }
 }
 //[SwiftUIのListでタップ中の背景色を変える｜TAAT](https://note.com/taatn0te/n/n225eb65839bc)

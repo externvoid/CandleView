@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87088C0D2C4CB25600969010 /* cordinateTransform.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 87088C0C2C4CB25600969010 /* cordinateTransform.pdf */; };
 		876872EA2C43A7ED00EE6F07 /* CodeOrName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876872E92C43A7E900EE6F07 /* CodeOrName.swift */; };
 		87BA4D132B52CAB5008D7181 /* ChartPlotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BA4D122B52CAB5008D7181 /* ChartPlotApp.swift */; };
 		87BA4D152B52CAB5008D7181 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BA4D142B52CAB5008D7181 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		87088C0C2C4CB25600969010 /* cordinateTransform.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cordinateTransform.pdf; sourceTree = SOURCE_ROOT; };
 		87356F742B53144500B0723F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		876872E92C43A7E900EE6F07 /* CodeOrName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeOrName.swift; sourceTree = "<group>"; };
 		87BA4D0F2B52CAB5008D7181 /* ChartPlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChartPlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 				87BA4D182B52CAB7008D7181 /* Preview Content */,
 				87BA4D222B52CC08008D7181 /* CandleView.swift */,
 				876872E92C43A7E900EE6F07 /* CodeOrName.swift */,
+				87088C0C2C4CB25600969010 /* cordinateTransform.pdf */,
 				87BC583D2B5601920078EC3A /* README.md */,
 				87BA4D242B52CC31008D7181 /* VM.swift */,
 				87BC583B2B556E040078EC3A /* ext_VM.swift */,
@@ -151,6 +154,7 @@
 			files = (
 				87BC583E2B5601920078EC3A /* README.md in Resources */,
 				87BA4D1A2B52CAB7008D7181 /* Preview Assets.xcassets in Resources */,
+				87088C0D2C4CB25600969010 /* cordinateTransform.pdf in Resources */,
 				87BA4D172B52CAB7008D7181 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,7 +313,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
-				DEVELOPMENT_TEAM = XB3BR4BYPE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -342,7 +346,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
-				DEVELOPMENT_TEAM = XB3BR4BYPE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

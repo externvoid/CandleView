@@ -1,10 +1,11 @@
 import Foundation
-public extension Date {
-//  private static var a: Int { 1 } // 奇妙な挙動に困った
-//  private static var b: Int = 1
+
+extension Date {
+  //  private static var a: Int { 1 } // 奇妙な挙動に困った
+  //  private static var b: Int = 1
   // error: extensions must not contain stored properties
   // var c: Int = 1
-  static let formatter: DateFormatter = {
+  public static let formatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.timeZone = NSTimeZone.system
     formatter.locale = Locale(identifier: "ja_JP")
@@ -15,14 +16,14 @@ public extension Date {
     return formatter
   }()
   // Date →String, print(Date().string()) // => 2023-05-24T22:54:57+0900
-  func string(format: String = "yyyy-MM-dd'T'HH:mm:ssZ") -> String {
+  public func string(format: String = "yyyy-MM-dd'T'HH:mm:ssZ") -> String {
     let formatter: DateFormatter = DateFormatter()
     formatter.dateFormat = format
     return formatter.string(from: self)
   }
 
   // String → Date
-  init?(dateString: String, dateFormat: String = "yyyy/MM/dd") {
+  public init?(dateString: String, dateFormat: String = "yyyy/MM/dd") {
     Date.formatter.dateFormat = dateFormat
     guard let date = Date.formatter.date(from: dateString) else { return nil }
     self = date
@@ -65,7 +66,7 @@ public extension Date {
 //  }
 //}
 extension Array {
-  func revert<T>(ar: Array<T>) -> Array<T> {
+  func revert<T>(ar: [T]) -> [T] {
     var ret: [T] = []
     for e in ar.reversed() {
       ret.append(e)
@@ -80,4 +81,3 @@ extension Array {
 // heightを与えて..., e/quoteH * height, quote: 取引値、
 // heightを与えず..., e - min /quoteH, quote: 取引値、
 // quoteH = max - min
-

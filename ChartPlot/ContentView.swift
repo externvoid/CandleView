@@ -11,14 +11,14 @@ struct ContentViewX: View {
   }
 }
 
-#Preview {
+#Preview{
   ContentView()
     .frame(minWidth: 400, idealWidth: 690, minHeight: 320, idealHeight: 486)
-//    .frame(
-//      minWidth: 700,
-//      idealWidth: 1000,
-//      maxWidth: .infinity,
-//      minHeight: 400,
-//      idealHeight: 800,
-//      maxHeight: .infinity)
+  //    .frame(
+  //      minWidth: 700,
+  //      idealWidth: 1000,
+  //      maxWidth: .infinity,
+  //      minHeight: 400,
+  //      idealHeight: 800,
+  //      maxHeight: .infinity)
 }
