@@ -1,4 +1,5 @@
 import Combine
+import NWer
 //[【Xcode/Swift】APIエラー：App Transport Securityの解決方法 - iOS-Docs](https://ios-docs.dev/app-transport-security/)
 // 📅2024/01/12Fr
 import Foundation
@@ -8,17 +9,28 @@ public typealias candle = (
   close: Double, volume: Double
 )
 public typealias xtick = (date: Date?, norm: Int, st: Bool)
-// MARK: conflicting code vs ticker
+// FIXME: conflicting code vs ticker
 
-//public actor VM: ObservableObject {
+// MARK: VM
 public class VM: ObservableObject {
   @Published public var ar: [candle] = []
   //  @Published public var isLoading: Bool = true
+  @Published public var ticker: String = "1301"
+  //  @Published public var ar: [candle] = []
+  var cancelBag = Set<AnyCancellable>()
   public init(ar: [candle] = dummy, ticker: String = "0000") {
     print("N225")
     self.ar = ar
     self.ticker = ticker
   }
+  
+  public init() {
+//    Task {
+//      ar = try! await Networker.fetchHist(ticker) // 挙動がおかしい
+//    }
+    bind()
+  }
+
   public var max: Double {
     ar.reduce(into: -Double.infinity) { r, e in
       r = [e.1, e.2, e.3, e.4, r].max()!
@@ -82,13 +94,6 @@ public class VM: ObservableObject {
     return Int(str.components(separatedBy: "/")[1])
   }
   // VM
-  @Published public var ticker: String = "1301"
-  //  @Published public var ar: [candle] = []
-  var cancelBag = Set<AnyCancellable>()
-  public func fetchHist(_ code: String) {
-    print("**** \(code)")
-    self.ticker = code
-  }
   func bind() {
     $ticker /*.dropFirst(1)*/.flatMap { e in
       Future<[candle], Error> { promise in
@@ -144,10 +149,5 @@ public class VM: ObservableObject {
       //      print("isLoading = \(isLoading)")
     }
     .store(in: &cancelBag)
-  }
-  public init() {
-    bind()
-    //    sleep(3)  // Playgroundだから必要なのか？
-    print("bind OK")
   }
 }  // end of class

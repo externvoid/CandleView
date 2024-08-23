@@ -82,10 +82,6 @@ public class VM: ObservableObject {
   @Published public var ticker: String = "1301"
   //  @Published public var ar: [candle] = []
   var cancelBag = Set<AnyCancellable>()
-  public func fetchHist(_ code: String) {
-    print("**** \(code)")
-    self.ticker = code
-  }
   func bind() {
     $ticker.dropFirst(1).flatMap { e in
       Future<[candle], Error> { promise in

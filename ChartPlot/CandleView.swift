@@ -4,6 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
   //    var c: Candle = .init() // Candle is in Sources
+  @EnvironmentObject var appState: AppState
   @StateObject var c: VM = .init()  // Candle is in Sources
   //    let c = VM(ar: VM.dummy) // Candle is in Sources
   let fsize: CGSize = CGSize(width: 300, height: 200)
@@ -18,7 +19,8 @@ struct ContentView: View {
       //      CandleView(c: c, fsize: fsize)
       //      .onAppear(perform: {
       //      })
-      let _ = print("in body@ContentView \(p.size)")
+      let _ = print("in body@ContentView, p.size \(p.size)")
+      let _ = print("in body@ContentView, codeTbl \(appState.codeTbl.count)")
     }
     //      CandleView(c: c, fsize: fsize)
     //      let _ = print("in body \(fsize)")

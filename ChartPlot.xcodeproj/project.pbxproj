@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87083D7C2C7866720031A8C0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87083D7B2C7866720031A8C0 /* AppState.swift */; };
 		87088C0D2C4CB25600969010 /* cordinateTransform.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 87088C0C2C4CB25600969010 /* cordinateTransform.pdf */; };
 		876872EA2C43A7ED00EE6F07 /* CodeOrName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876872E92C43A7E900EE6F07 /* CodeOrName.swift */; };
+		87A401B42C778F7A0046B0F8 /* NWer in Frameworks */ = {isa = PBXBuildFile; productRef = 87A401B32C778F7A0046B0F8 /* NWer */; };
 		87BA4D132B52CAB5008D7181 /* ChartPlotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BA4D122B52CAB5008D7181 /* ChartPlotApp.swift */; };
 		87BA4D152B52CAB5008D7181 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BA4D142B52CAB5008D7181 /* ContentView.swift */; };
 		87BA4D172B52CAB7008D7181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BA4D162B52CAB7008D7181 /* Assets.xcassets */; };
@@ -21,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		87083D7B2C7866720031A8C0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		87088C0C2C4CB25600969010 /* cordinateTransform.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cordinateTransform.pdf; sourceTree = SOURCE_ROOT; };
 		87356F742B53144500B0723F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		876872E92C43A7E900EE6F07 /* CodeOrName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeOrName.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87A401B42C778F7A0046B0F8 /* NWer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +84,7 @@
 				87088C0C2C4CB25600969010 /* cordinateTransform.pdf */,
 				87BC583D2B5601920078EC3A /* README.md */,
 				87BA4D242B52CC31008D7181 /* VM.swift */,
+				87083D7B2C7866720031A8C0 /* AppState.swift */,
 				87BC583B2B556E040078EC3A /* ext_VM.swift */,
 				87BA4D262B52CC3B008D7181 /* ext_.swift */,
 			);
@@ -110,6 +115,9 @@
 			dependencies = (
 			);
 			name = ChartPlot;
+			packageProductDependencies = (
+				87A401B32C778F7A0046B0F8 /* NWer */,
+			);
 			productName = ChartPlot;
 			productReference = 87BA4D0F2B52CAB5008D7181 /* ChartPlot.app */;
 			productType = "com.apple.product-type.application";
@@ -138,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 87BA4D062B52CAB5008D7181;
+			packageReferences = (
+				87A401B22C778F7A0046B0F8 /* XCRemoteSwiftPackageReference "NWer" */,
+			);
 			productRefGroup = 87BA4D102B52CAB5008D7181 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -169,6 +180,7 @@
 				87BC583C2B556E040078EC3A /* ext_VM.swift in Sources */,
 				87BA4D152B52CAB5008D7181 /* ContentView.swift in Sources */,
 				876872EA2C43A7ED00EE6F07 /* CodeOrName.swift in Sources */,
+				87083D7C2C7866720031A8C0 /* AppState.swift in Sources */,
 				87BA4D272B52CC3B008D7181 /* ext_.swift in Sources */,
 				87BA4D232B52CC08008D7181 /* CandleView.swift in Sources */,
 				87BA4D252B52CC31008D7181 /* VM.swift in Sources */,
@@ -389,6 +401,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		87A401B22C778F7A0046B0F8 /* XCRemoteSwiftPackageReference "NWer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = /Users/tanaka/Documents/SwiftUI_app/NWer;
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		87A401B32C778F7A0046B0F8 /* NWer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87A401B22C778F7A0046B0F8 /* XCRemoteSwiftPackageReference "NWer" */;
+			productName = NWer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 87BA4D072B52CAB5008D7181 /* Project object */;
 }
