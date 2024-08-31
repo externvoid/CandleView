@@ -95,7 +95,7 @@ struct CodeOrNameView: View {
         }
       }
       //      .task { ar = await fetchCodeTbl(url) }
-      .task { if ar.isEmpty { ar = await fetchCodeTbl(url) } }
+//      .task { if ar.isEmpty { ar = await fetchCodeTbl(url) } }
     }
     .listStyle(.plain)
     .navigationTitle("ListView")

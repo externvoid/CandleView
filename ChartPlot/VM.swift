@@ -12,10 +12,18 @@ public typealias xtick = (date: Date?, norm: Int, st: Bool)
 // FIXME: conflicting code vs ticker
 
 // MARK: VM
+//@MainActor
 public class VM: ObservableObject {
   @Published public var ar: [candle] = []
-  //  @Published public var isLoading: Bool = true
   @Published public var ticker: String = "1301"
+//  {
+//    didSet {
+//      print("--- didSet ---")
+//      Task {
+//        ar = try! await Networker.fetchHist(ticker) // ここは実行されない
+//      }
+//    }
+//  }
   //  @Published public var ar: [candle] = []
   var cancelBag = Set<AnyCancellable>()
   public init(ar: [candle] = dummy, ticker: String = "0000") {
@@ -25,6 +33,7 @@ public class VM: ObservableObject {
   }
   
   public init() {
+    print("--- init ---")
 //    Task {
 //      ar = try! await Networker.fetchHist(ticker) // 挙動がおかしい
 //    }

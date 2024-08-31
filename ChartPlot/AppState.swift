@@ -2,7 +2,7 @@
 import Foundation
 import NWer
 
-//@MainActor
+@MainActor
 class AppState: ObservableObject {
   @Published var codeTbl: [[String]] = []
 

@@ -1,7 +1,13 @@
 /// 📅2024/01/13St
 // [Using onAppear Only Once in SwiftUI | DeveloperMemos](https://developermemos.com/posts/onappear-once-swiftui)
 import SwiftUI
+import NWer
 
+extension NSWindow {
+  var titlebarHeight: CGFloat {
+    frame.height - contentLayoutRect.size.height
+  }
+}
 struct ContentView: View {
   //    var c: Candle = .init() // Candle is in Sources
   @EnvironmentObject var appState: AppState
@@ -10,17 +16,24 @@ struct ContentView: View {
   let fsize: CGSize = CGSize(width: 300, height: 200)
   //  @State var fsize: CGSize// = NSScreen.main!.frame.size
   //    let fsize: CGSize = CGSize(width: 175, height: 120)
+  let window = NSApplication.shared.windows.first
   var body: some View {
     GeometryReader { p in
       let pp: CGSize = CGSize(
         width: p.size.width - 34,
-        height: 0.8 * (p.size.height - 29))
-      CandleView(c: c, fsize: pp)
+        height: 0.8 * (p.size.height - 28))
+      CandleView(c: c, appState: appState, fsize: pp)
+//        .task {
+//          c.ar = try! await Networker.fetchHist(c.ticker)
+//        }
       //      CandleView(c: c, fsize: fsize)
       //      .onAppear(perform: {
       //      })
       let _ = print("in body@ContentView, p.size \(p.size)")
       let _ = print("in body@ContentView, codeTbl \(appState.codeTbl.count)")
+      let _ = print("in body@ContentView, window \(window?.frame.size)")
+      let _ = print("in body@ContentView, Content \(window?.contentLayoutRect.size)")
+//      let _ = print("in body@ContentView, window \(window?.titlebarHeight)")
     }
     //      CandleView(c: c, fsize: fsize)
     //      let _ = print("in body \(fsize)")
@@ -29,6 +42,7 @@ struct ContentView: View {
 }
 struct CandleView: View {
   @ObservedObject var c: VM
+  @ObservedObject var appState: AppState
   var fsize: CGSize
   @State var hoverLocation: CGPoint = .zero
   @State var isHovering = false
@@ -50,7 +64,7 @@ struct CandleView: View {
             volumes(ctx, size)
           }
           .frame(width: fsize.width, height: fsize.height / 4.0)
-          //        .offset(x: 0, y: -15)
+//                  .offset(x: 0, y: -15)
         }
         //.onAppear(perform: { c.ticker = "1301" })
         // 3
@@ -106,12 +120,16 @@ extension CandleView {
     let h = size.height
     let n = c.ar.count
     let w = width / CGFloat(n)
-    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.vmax, tx: 0.0, ty: h)
+//    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.vmax, tx: 0.0, ty: h)
+//    let mtx0 = CGAffineTransform(scaleX: 1.0, y: -h / c.vmax)//, tx: 0.0, ty: h)
+    let mtx0 = CGAffineTransform(translationX: 0.0, y: h)//, tx: 0.0, ty: h)
+    let mtx = mtx0.scaledBy(x: 1.0, y: -h)// / c.vmax)
     var ps = Path()
-    var pf = Path()  // 陽線、白塗り, 陽線、枠だけ
+    var pf = Path()  // 棒グラフ、塗り, 枠だけ
 
     for (i, e) in c.ar.enumerated() {
-      let rect = CGRect(x: CGFloat(i) * w, y: 0.0, width: w, height: e.volume)
+      let rect = CGRect(x: CGFloat(i) * w, y: 0.0, width: w, height: e.volume / c.vmax)
+      assert( e.volume >= 0.0, "e.volume" )
       pf.addRect(rect)
       ps.addRect(rect)
     }
@@ -142,7 +160,8 @@ extension CandleView {
     }
   }
 
-  // MARK: - draw 価格、横軸 & Caption
+  // MARK: - draw 価格、横軸 & 銘柄コード、銘柄名(ToDo)
+  // ticker2nameの実装が必要
   func gridlines(_ ctx: GraphicsContext, _ size: CGSize) {
     if c.ar.isEmpty { return }
     let h = size.height
@@ -180,7 +199,7 @@ extension CandleView {
     let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.qheight, tx: 0.0, ty: h)
     let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
     var pf = Path()
-    var ps = Path()  // 陽線、白塗り, 陽線、枠だけ
+    var ps = Path()  // 陽線、白塗り, 陰線、枠だけ
 
     for (i, e) in c.ar.enumerated() {
       let rect = CGRect(
@@ -234,7 +253,7 @@ extension CandleView {
         }
         .buttonStyle(PlainButtonStyle())
         .popover(isPresented: $isShown) {
-          CodeOrNameView(c: c, code: $_code_)  // 三菱
+          CodeOrNameView(c: c, ar: appState.codeTbl, code: $_code_)  // 三菱
           //          VStack {
           //            Spacer()
           //            Text("Ticker Code").font(.largeTitle)
@@ -264,6 +283,6 @@ extension CandleView {
 }
 let a: CGSize = .init(width: 300, height: 200)
 #Preview{
-  CandleView(c: VM(), fsize: a)
+  CandleView(c: VM(), appState: AppState(), fsize: a)
     .frame(width: a.width + 32, height: a.height * 1.25 + 32)
 }
