@@ -23,16 +23,17 @@ struct ContentView: View {
         width: p.size.width - 34,
         height: 0.8 * (p.size.height - 28))
       CandleView(c: c, appState: appState, fsize: pp)
-//        .task {
+        .task {
+          c.ar = try! await Networker.queryHist(c.ticker)
 //          c.ar = try! await Networker.fetchHist(c.ticker)
-//        }
+        }
       //      CandleView(c: c, fsize: fsize)
       //      .onAppear(perform: {
       //      })
       let _ = print("in body@ContentView, p.size \(p.size)")
       let _ = print("in body@ContentView, codeTbl \(appState.codeTbl.count)")
-      let _ = print("in body@ContentView, window \(window?.frame.size)")
-      let _ = print("in body@ContentView, Content \(window?.contentLayoutRect.size)")
+      let _ = print("in body@ContentView, window \(String(describing: window?.frame.size))")
+      let _ = print("in body@ContentView, Content \(String(describing: window?.contentLayoutRect.size))")
 //      let _ = print("in body@ContentView, window \(window?.titlebarHeight)")
     }
     //      CandleView(c: c, fsize: fsize)
@@ -50,7 +51,7 @@ struct CandleView: View {
   @State var isShown = false
   @State var _code_: String = ""
   var body: some View {
-    ZStack {
+    ZStack(alignment: .bottomTrailing) {
       ZStack(alignment: .bottom) {
         VStack(spacing: -10) {
           // 1
@@ -65,15 +66,14 @@ struct CandleView: View {
           }
           .frame(width: fsize.width, height: fsize.height / 4.0)
 //                  .offset(x: 0, y: -15)
-        }
-        //.onAppear(perform: { c.ticker = "1301" })
+        } // VStack
         // 3
         Canvas { ctx, size in  // Date Caption
           xaxisDateTick(ctx, size)
         }
         .frame(width: fsize.width, height: 12)  //, alignment: .bottom)
         .padding(.bottom, 2)
-      }  // ZStack
+      }  // ZStack inner
       .onAppear {
         print("inner ZStack1")
         if let window = NSApplication.shared.windows.first {
@@ -97,7 +97,8 @@ struct CandleView: View {
 
         //        if isHovering { }
       }
-    }  //.onAppear(perform: { c.ticker = "1301" }) // ZStack2
+      btn
+    }  // ZStack outter
     .onAppear {
       print("outer ZStack2")
       if let window = NSApplication.shared.windows.first {
@@ -218,7 +219,7 @@ extension CandleView {
     ctx.stroke(ps.applying(mt0).applying(mtx), with: .color(.blue))
   }
 
-  // MARK: - describe code, volume, dateレジェンド
+  // MARK: - describe code related info like volume or dateレジェンド, 縦棒
   /// - Parameter none
   @ViewBuilder
   var overlayView: some View {
@@ -241,6 +242,7 @@ extension CandleView {
           .opacity(0.5)
           .frame(width: 01, height: fsize.height * 1.20)
           .position(x: hoverLocation.x, y: (fsize.height * 1.20) / 2.0 + 0.0)  // locate the center of View.
+//          .zIndex(-1.0)
         Button {
           isShown = true
         } label: {
@@ -254,32 +256,40 @@ extension CandleView {
         .buttonStyle(PlainButtonStyle())
         .popover(isPresented: $isShown) {
           CodeOrNameView(c: c, ar: appState.codeTbl, code: $_code_)  // 三菱
-          //          VStack {
-          //            Spacer()
-          //            Text("Ticker Code").font(.largeTitle)
-          //            Spacer()
-          //            TextField("Ticker Code", text: $_code_)
-          //              .textFieldStyle(RoundedBorderTextFieldStyle())
-          //              .onSubmit { c.ticker = _code_ }
-          //            Spacer()
-          //          }.frame(width: 200, height: 100)
         }  // popover
-        //        .popover(isPresented: $isShown) {
-        //          VStack {
-        //            Spacer()
-        //            Text("PopOver").font(.largeTitle)
-        //            Spacer()
-        //          }
-        //        Text("v: \(String(format: "%6d", v)), d: \(d)")
-        //          .foregroundColor(.white)
-        //          .font(.system(size: 9.5, design: .monospaced))
-        //          .padding(.top, 13)
-        //          .padding(.leading, 2)
-        //        .offset(x: 10, y: 10)
-        //        Button("Click Here") { isShown = true }
       }
     }
   }
+  //
+  @ViewBuilder
+  var btn: some View {
+    Button(
+      action: {
+        appState.isShown = true
+      },
+      label: {
+        ZStack {
+          //        Color(nsColor: .windowBackgroundColor)
+          //          .frame(width: 60, height: 60)
+          Image(systemName: "plus.circle")
+            .resizable()
+            .frame(width: 40, height: 40)
+          //            .imageScale(.large)
+            .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0.1))
+          //        .background(.clear)
+        }  //.frame(width: 50, height: 50)
+      }
+    )
+    .buttonStyle(PlainButtonStyle())
+    .popover(isPresented: $appState.isShown) {
+      CodeOrNameView(c: c, ar: appState.codeTbl, code: $_code_)  // 三菱
+//      ZStack {
+//        Color.gray
+//        Text("OK")
+//      }
+//      .frame(width: 60, height: 30)
+    }
+  }  // btn
 }
 let a: CGSize = .init(width: 300, height: 200)
 #Preview{

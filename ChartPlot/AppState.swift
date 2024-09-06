@@ -9,6 +9,7 @@ class AppState: ObservableObject {
   /// Properties used for detecting loading states
   @Published var loadingError = false
   @Published var isLoading = false
+  @Published var isShown = false
 
   /// On `init` start downloading the data for the current day.
   init() {

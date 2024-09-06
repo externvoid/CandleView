@@ -322,7 +322,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChartPlot/ChartPlot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
@@ -355,7 +355,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChartPlot/ChartPlot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
