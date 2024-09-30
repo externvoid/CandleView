@@ -109,6 +109,7 @@
 				87BA4D0B2B52CAB5008D7181 /* Sources */,
 				87BA4D0C2B52CAB5008D7181 /* Frameworks */,
 				87BA4D0D2B52CAB5008D7181 /* Resources */,
+				879A1AF62C8C2CDC007C2F11 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -171,6 +172,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		879A1AF62C8C2CDC007C2F11 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nswift format -i -r . --configuration ~/.fmt.cnf \n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		87BA4D0B2B52CAB5008D7181 /* Sources */ = {
@@ -322,12 +344,13 @@
 				CODE_SIGN_ENTITLEMENTS = ChartPlot/ChartPlot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChartPlot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ChartPlot;
@@ -355,12 +378,13 @@
 				CODE_SIGN_ENTITLEMENTS = ChartPlot/ChartPlot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartPlot/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChartPlot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ChartPlot;

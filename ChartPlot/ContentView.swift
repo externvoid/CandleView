@@ -11,7 +11,7 @@ struct ContentViewX: View {
   }
 }
 
-#Preview{
+#Preview {
   ContentView()
     .frame(minWidth: 400, idealWidth: 690, minHeight: 320, idealHeight: 486)
   //    .frame(

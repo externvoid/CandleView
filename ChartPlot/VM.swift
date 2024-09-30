@@ -1,8 +1,8 @@
 import Combine
-import NWer
 //[【Xcode/Swift】APIエラー：App Transport Securityの解決方法 - iOS-Docs](https://ios-docs.dev/app-transport-security/)
 // 📅2024/01/12Fr
 import Foundation
+import NWer
 
 public typealias candle = (
   date: String, open: Double, high: Double, low: Double,
@@ -19,26 +19,31 @@ public class VM: ObservableObject {
   {
     didSet {
       print("--- didSet ---")
+      let dbBase = "/Volumes/twsmb/newya/asset/"
+      //        let dbBase = "/Volumes/homes/super/NASData/StockDB/"
+      let dbPath1 = dbBase + "crawling.db"
+      let dbPath2 = dbBase + "n225Hist.db"
       Task {
-        ar = try! await Networker.queryHist(ticker)
-//        ar = try! await Networker.fetchHist(ticker)
+        ar = try! await Networker.queryHist(ticker, dbPath1, dbPath2)
+        //        ar = try! await Networker.fetchHist(ticker)
       }
     }
   }
   //  @Published public var ar: [candle] = []
   var cancelBag = Set<AnyCancellable>()
-  public init(ar: [candle] = dummy, ticker: String = "0000") {
+  public init(ar: [candle], ticker: String = "0000") {
+    //    public init(ar: [candle] = VM.dummy, ticker: String = "0000") {
     print("N225")
     self.ar = ar
     self.ticker = ticker
   }
-  
+
   public init() {
     print("--- init ---")
-//    Task {
-//      ar = try! await Networker.fetchHist(ticker)
-//    }
-//    bind()
+    //    Task {
+    //      ar = try! await Networker.fetchHist(ticker)
+    //    }
+    //    bind()
   }
 
   public var max: Double {

@@ -77,7 +77,8 @@ extension CandleView {
     let h = size.height
     let n = c.ar.count
     let w = width / CGFloat(n)
-    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.vmax, tx: 0.0, ty: h)
+    let mtx = CGAffineTransform(
+      a: 1.0, b: 0.0, c: 0.0, d: -h / c.vmax, tx: 0.0, ty: h)
     //  let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
     var ps = Path()
     var pf = Path()  // 陽線、白塗り, 陽線、枠だけ
@@ -117,7 +118,8 @@ extension CandleView {
   func gridlines(_ ctx: GraphicsContext, _ size: CGSize) {
     let h = size.height
     let rect = CGRect(origin: .zero, size: size)  // 描画エリア
-    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.qheight, tx: 0.0, ty: h)
+    let mtx = CGAffineTransform(
+      a: 1.0, b: 0.0, c: 0.0, d: -h / c.qheight, tx: 0.0, ty: h)
     let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
     var ps = Path()  // 陽線、白塗り, 陽線、枠だけ
     c.yticks.forEach { e in
@@ -125,7 +127,8 @@ extension CandleView {
       ps.addLine(to: CGPoint(x: rect.maxX, y: e))
     }
     ctx.stroke(
-      ps.applying(mt0).applying(mtx), with: .color(.gray), style: StrokeStyle(dash: [2, 2, 2, 2]))
+      ps.applying(mt0).applying(mtx), with: .color(.gray),
+      style: StrokeStyle(dash: [2, 2, 2, 2]))
     // Axis Labels▶️ticks2の中身を再考
     var rticks: [Int] = []
     for e in c.yticks.reversed() { rticks.append(Int(e)) }
@@ -147,7 +150,8 @@ extension CandleView {
     let h = size.height
     let n = c.ar.count
     let w = width / CGFloat(n)
-    let mtx = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: -h / c.qheight, tx: 0.0, ty: h)
+    let mtx = CGAffineTransform(
+      a: 1.0, b: 0.0, c: 0.0, d: -h / c.qheight, tx: 0.0, ty: h)
     let mt0 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min)
     //  let mt1 = CGAffineTransform.identity.translatedBy(x: 0, y: -c.min).concatenating(mtx)
     //  let mt2 = mtx.concatenating(CGAffineTransform.identity.translatedBy(x: 0, y: -c.min))
@@ -158,7 +162,8 @@ extension CandleView {
       //    let point = CGPoint(x: CGFloat(i) * w, y: min(e.open, e.close)) // 日足左下座標
       //    let csize = CGSize(width: w, height: abs(e.open - e.close)) //実体縦横
       let rect = CGRect(
-        x: CGFloat(i) * w, y: min(e.open, e.close), width: w, height: abs(e.open - e.close))
+        x: CGFloat(i) * w, y: min(e.open, e.close), width: w,
+        height: abs(e.open - e.close))
       if e.open < e.close {  // 引け値高, 陽線
         pf.addRect(rect)  // addLine can't be contained in fill method
       } else {
@@ -197,6 +202,7 @@ extension CandleView {
     }
   }
 }  // end of Extension
-PlaygroundPage.current.setLiveView(ContentView().frame(width: 330, height: 400).border(.cyan))
+PlaygroundPage.current.setLiveView(
+  ContentView().frame(width: 330, height: 400).border(.cyan))
 //PlaygroundPage.current.setLiveView(ContentView())
 //[\[MacOS\]のSwiftUIで動的な図形描画 - Qiita](https://qiita.com/Taku33ai/items/82d7b1c5591cc5fed315)

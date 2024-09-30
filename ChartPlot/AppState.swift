@@ -14,7 +14,11 @@ class AppState: ObservableObject {
   /// On `init` start downloading the data for the current day.
   init() {
     Task {
-      codeTbl = try! await Networker.queryCodeTbl()
+      let dbBase = "/Volumes/twsmb/newya/asset/"
+      //        let dbBase = "/Volumes/homes/super/NASData/StockDB/"
+      let dbPath1 = dbBase + "yatoday.db"
+      let dbPath2 = dbBase + "n225Hist.db"
+      codeTbl = try! await Networker.queryCodeTbl(dbPath1, dbPath2)
     }
   }
 }

@@ -61,8 +61,10 @@ extension ListButtonStyle {
 }
 
 struct ListItemButtonStyle: ListButtonStyle {
-  var backgroundColor: Color = .init(red: 245 / 255, green: 245 / 255, blue: 245 / 255)
-  var pressedBackgroundColor: Color = .init(red: 255 / 255, green: 192 / 255, blue: 203 / 255)
+  var backgroundColor: Color = .init(
+    red: 245 / 255, green: 245 / 255, blue: 245 / 255)
+  var pressedBackgroundColor: Color = .init(
+    red: 255 / 255, green: 192 / 255, blue: 203 / 255)
 }
 // MARK: CodeOrNameView
 struct CodeOrNameView: View {
@@ -95,7 +97,7 @@ struct CodeOrNameView: View {
         }
       }
       //      .task { ar = await fetchCodeTbl(url) }
-//      .task { if ar.isEmpty { ar = await fetchCodeTbl(url) } }
+      //      .task { if ar.isEmpty { ar = await fetchCodeTbl(url) } }
     }
     .listStyle(.plain)
     .navigationTitle("ListView")
@@ -149,6 +151,9 @@ struct ContentView0: View {  // for playground
     // CodeOrNameView(txt: $txt, code: $code) // 三菱
     let _ = print(code)  // 6503
   }
+}
+#Preview {
+  ContentView0()
 }
 //[SwiftUIのListでタップ中の背景色を変える｜TAAT](https://note.com/taatn0te/n/n225eb65839bc)
 //[swift - SwiftUI: Actors and Views - Mutable capture of 'inout' parameter 'self' is not allowed in concurrently-executing code - Stack Overflow](https:stackoverflow.com/questions/74508254/swiftui-actors-and-views-mutable-capture-of-inout-parameter-self-is-not-a)
