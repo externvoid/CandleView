@@ -14,6 +14,7 @@ struct ContentViewX: View {
 #Preview {
   ContentView()
     .frame(minWidth: 400, idealWidth: 690, minHeight: 320, idealHeight: 486)
+    .environmentObject(AppState())
   //    .frame(
   //      minWidth: 700,
   //      idealWidth: 1000,
