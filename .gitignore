@@ -1,9 +1,6 @@
 .DS_Store
-ChartPlot/Assets.xcassets/AppIcon 2.appiconset/
+ChartPlot/Assets.xcassets/AppIcon *.*/
 ChartPlot.xcodeproj/project.xcworkspace/xcuserdata/
 ChartPlot.xcodeproj/xcuserdata/
-modified:   .gitignore
 ChartPlot.xcodeproj/project.xcworkspace/xcuserdata/tanaka.xcuserdatad/UserInterfaceState.xcuserstate
 ChartPlot.xcodeproj/xcuserdata/tanaka.xcuserdatad/xcschemes/xcschememanagement.plist
-
-

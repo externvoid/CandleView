@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ChartPlotApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  @StateObject var appState = AppState()
+
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(appState)
     }
+  }
 }
